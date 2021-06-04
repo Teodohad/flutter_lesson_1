@@ -13,7 +13,16 @@ class UserProfile extends StatelessWidget {
     MenuRowData(Icons.date_range, 'Data and memory'),
     MenuRowData(Icons.brush, 'Registration'),
     MenuRowData(Icons.language, 'Language'),
+    MenuRowData(Icons.sticky_note_2, 'Sticky'),
   ];
+  List<MenuRowData> thirdMenuRow = [
+    MenuRowData(Icons.lock_clock, 'Apple Watch'),
+  ];
+  List<MenuRowData> fourMenuRow = [
+    MenuRowData(Icons.help, 'Help'),
+    MenuRowData(Icons.question_answer, 'Questions about Telegram'),
+  ];
+
   UserProfile();
 
   @override
@@ -21,12 +30,11 @@ class UserProfile extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('Settings'),
+        title: Center(child: Text('Settings')),
       ),
       body: Container(
         width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
           children: [
             _UserInfo(),
             SizedBox(
@@ -37,6 +45,14 @@ class UserProfile extends StatelessWidget {
               height: 30,
             ),
             _MenuWidget(menuRow: secondMenuRow),
+            SizedBox(
+              height: 30,
+            ),
+            _MenuWidget(menuRow: thirdMenuRow),
+            SizedBox(
+              height: 30,
+            ),
+            _MenuWidget(menuRow: fourMenuRow),
           ],
         ),
       ),
@@ -100,29 +116,44 @@ class _UserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      width: double.infinity,
-      child: Column(
-        children: [
-          SizedBox(
-            height: 30,
+    return Stack(
+      children: [
+        Container(
+          color: Colors.white,
+          width: double.infinity,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 30,
+              ),
+              _AvatarWidget(),
+              SizedBox(
+                height: 30,
+              ),
+              _UserNameWidget(),
+              SizedBox(
+                height: 10,
+              ),
+              _UserPhoneWidget(),
+              SizedBox(
+                height: 10,
+              ),
+              _UserNicknameWidget(),
+            ],
           ),
-          _AvatarWidget(),
-          SizedBox(
-            height: 30,
+        ),
+        Positioned(
+          top: 20,
+          right: 20,
+          child: Text(
+            'Change',
+            style: TextStyle(
+              color: Colors.blue,
+              fontSize: 17,
+            ),
           ),
-          _UserNameWidget(),
-          SizedBox(
-            height: 10,
-          ),
-          _UserPhoneWidget(),
-          SizedBox(
-            height: 10,
-          ),
-          _UserNicknameWidget(),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
